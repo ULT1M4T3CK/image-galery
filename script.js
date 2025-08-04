@@ -14,16 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
     setupTouchNavigation();
     preloadImages();
     
-    // Test autoplay button functionality
-    const autoplayBtn = document.querySelector('.control-btn');
-    if (autoplayBtn) {
-        console.log('Autoplay button found');
-        autoplayBtn.addEventListener('click', function(e) {
-            console.log('Autoplay button clicked');
-        });
-    } else {
-        console.log('Autoplay button not found');
-    }
+    // Setup all event listeners
+    reattachEventListeners();
 });
 
 // Function to change slide
@@ -383,15 +375,49 @@ function loadDefaultGalleryData() {
 
 // Password Protection Functions
 function showPasswordModal() {
-    document.getElementById('passwordModal').style.display = 'block';
-    document.getElementById('passwordInput').focus();
-    document.getElementById('passwordError').style.display = 'none';
+    console.log('showPasswordModal called');
+    const passwordModal = document.getElementById('passwordModal');
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+    
+    if (!passwordModal) {
+        console.error('Password modal not found!');
+        return;
+    }
+    
+    if (!passwordInput) {
+        console.error('Password input not found!');
+        return;
+    }
+    
+    if (!passwordError) {
+        console.error('Password error element not found!');
+        return;
+    }
+    
+    console.log('Showing password modal');
+    passwordModal.style.display = 'block';
+    passwordInput.focus();
+    passwordError.style.display = 'none';
 }
 
 function closePasswordModal() {
-    document.getElementById('passwordModal').style.display = 'none';
-    document.getElementById('passwordInput').value = '';
-    document.getElementById('passwordError').style.display = 'none';
+    console.log('closePasswordModal called');
+    const passwordModal = document.getElementById('passwordModal');
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+    
+    if (passwordModal) {
+        passwordModal.style.display = 'none';
+    }
+    
+    if (passwordInput) {
+        passwordInput.value = '';
+    }
+    
+    if (passwordError) {
+        passwordError.style.display = 'none';
+    }
 }
 
 function togglePasswordVisibility() {
@@ -683,10 +709,42 @@ function updateGallery() {
     // Update the slides and thumbnails to reflect current slide
     updateSlideDisplay();
     
+    // Reattach all event listeners
+    reattachEventListeners();
+    
     // Save to localStorage for persistence
     localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
     
     console.log('Gallery updated:', galleryImages);
+}
+
+function reattachEventListeners() {
+    // Reattach autoplay button
+    const autoplayBtn = document.querySelector('.control-btn');
+    if (autoplayBtn) {
+        autoplayBtn.onclick = function(e) {
+            console.log('Autoplay button clicked');
+            toggleAutoplay();
+        };
+    }
+    
+    // Reattach navigation buttons
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (prevBtn) {
+        prevBtn.onclick = () => changeSlide(-1);
+    }
+    
+    if (nextBtn) {
+        nextBtn.onclick = () => changeSlide(1);
+    }
+    
+    // Reattach thumbnail click events
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.onclick = () => goToSlide(index);
+    });
 }
 
 function updateSlideshow() {
@@ -717,6 +775,18 @@ function updateSlideshow() {
         }
     });
     
+    // Reattach navigation button event listeners
+    const prevBtn = slideshowContainer.querySelector('.prev-btn');
+    const nextBtn = slideshowContainer.querySelector('.next-btn');
+    
+    if (prevBtn) {
+        prevBtn.onclick = () => changeSlide(-1);
+    }
+    
+    if (nextBtn) {
+        nextBtn.onclick = () => changeSlide(1);
+    }
+    
     // Update global slides reference
     window.slides = document.querySelectorAll('.slide');
     window.totalSlides = galleryImages.length;
@@ -729,8 +799,14 @@ function updateThumbnails() {
     galleryImages.forEach((image, index) => {
         const thumbnail = document.createElement('div');
         thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
-        thumbnail.onclick = () => goToSlide(index);
         thumbnail.innerHTML = `<img src="${image.src}" alt="Thumbnail ${index + 1}">`;
+        
+        // Add click event listener
+        thumbnail.addEventListener('click', () => {
+            console.log('Thumbnail clicked:', index);
+            goToSlide(index);
+        });
+        
         thumbnailContainer.appendChild(thumbnail);
     });
     
