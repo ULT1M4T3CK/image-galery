@@ -2,9 +2,9 @@
 let currentSlide = 0;
 let autoplayInterval;
 let isAutoplayActive = false;
-let slides = document.querySelectorAll('.slide');
-let thumbnails = document.querySelectorAll('.thumbnail');
-let totalSlides = slides.length;
+let slides = [];
+let thumbnails = [];
+let totalSlides = 0;
 
 // Initialize the slideshow
 document.addEventListener('DOMContentLoaded', function() {
@@ -23,6 +23,12 @@ function changeSlide(direction) {
     console.log('changeSlide called with direction:', direction);
     const currentTotalSlides = galleryImages.length;
     console.log('Current slide:', currentSlide, 'Total slides:', currentTotalSlides);
+    
+    if (currentTotalSlides === 0) {
+        console.error('No images in gallery!');
+        return;
+    }
+    
     const newSlide = (currentSlide + direction + currentTotalSlides) % currentTotalSlides;
     console.log('Going to slide:', newSlide);
     goToSlide(newSlide);
@@ -38,12 +44,24 @@ function goToSlide(slideIndex) {
     
     console.log('Found', currentSlides.length, 'slides and', currentThumbnails.length, 'thumbnails');
     
+    // Check if we have any slides
+    if (currentSlides.length === 0) {
+        console.error('No slides found!');
+        return;
+    }
+    
+    // Ensure slideIndex is within bounds
+    if (slideIndex < 0 || slideIndex >= currentSlides.length) {
+        console.error('Slide index out of bounds:', slideIndex, 'max:', currentSlides.length - 1);
+        return;
+    }
+    
     // Remove active class from current slide and thumbnail
-    if (currentSlides[currentSlide]) {
+    if (currentSlide < currentSlides.length && currentSlides[currentSlide]) {
         currentSlides[currentSlide].classList.remove('active');
         console.log('Removed active from slide', currentSlide);
     }
-    if (currentThumbnails[currentSlide]) {
+    if (currentSlide < currentThumbnails.length && currentThumbnails[currentSlide]) {
         currentThumbnails[currentSlide].classList.remove('active');
         console.log('Removed active from thumbnail', currentSlide);
     }
@@ -821,8 +839,11 @@ function updateSlideshow() {
     }
     
     // Update global slides reference
-    window.slides = document.querySelectorAll('.slide');
-    window.totalSlides = galleryImages.length;
+    slides = document.querySelectorAll('.slide');
+    thumbnails = document.querySelectorAll('.thumbnail');
+    totalSlides = galleryImages.length;
+    
+    console.log('Updated global variables - slides:', slides.length, 'thumbnails:', thumbnails.length, 'totalSlides:', totalSlides);
 }
 
 function updateThumbnails() {
@@ -844,7 +865,8 @@ function updateThumbnails() {
     });
     
     // Update global thumbnails reference
-    window.thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails = document.querySelectorAll('.thumbnail');
+    console.log('Updated thumbnails global variable:', thumbnails.length);
 }
 
 function updateSlideDisplay() {
@@ -893,11 +915,19 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize gallery data first
     initializeGalleryData();
+    console.log('Gallery data initialized with', galleryImages.length, 'images');
     
     // Update the gallery display with loaded data
     updateSlideshow();
     updateThumbnails();
     updateSlideCounter();
+    
+    // Verify everything is set up correctly
+    console.log('Initialization complete:');
+    console.log('- Slides:', slides.length);
+    console.log('- Thumbnails:', thumbnails.length);
+    console.log('- Total slides:', totalSlides);
+    console.log('- Current slide:', currentSlide);
     
     // Setup other functionality
     setupKeyboardNavigation();
