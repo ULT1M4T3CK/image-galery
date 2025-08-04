@@ -318,6 +318,10 @@ let galleryImages = [];
 let uploadedFiles = [];
 let draggedElement = null;
 
+// Password Protection System
+const ADMIN_PASSWORD = 'portugal2024'; // You can change this password
+let isAuthenticated = false;
+
 // Initialize gallery data
 function initializeGalleryData() {
     galleryImages = [
@@ -346,8 +350,68 @@ function initializeGalleryData() {
     ];
 }
 
+// Password Protection Functions
+function showPasswordModal() {
+    document.getElementById('passwordModal').style.display = 'block';
+    document.getElementById('passwordInput').focus();
+    document.getElementById('passwordError').style.display = 'none';
+}
+
+function closePasswordModal() {
+    document.getElementById('passwordModal').style.display = 'none';
+    document.getElementById('passwordInput').value = '';
+    document.getElementById('passwordError').style.display = 'none';
+}
+
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('passwordInput');
+    const toggleIcon = document.getElementById('passwordToggleIcon');
+    
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.className = 'fas fa-eye-slash';
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.className = 'fas fa-eye';
+    }
+}
+
+function verifyPassword() {
+    const passwordInput = document.getElementById('passwordInput');
+    const passwordError = document.getElementById('passwordError');
+    
+    if (passwordInput.value === ADMIN_PASSWORD) {
+        isAuthenticated = true;
+        closePasswordModal();
+        openManagementModal();
+        showNotification('Access granted! Welcome to gallery management.', 'success');
+    } else {
+        passwordError.style.display = 'flex';
+        passwordInput.value = '';
+        passwordInput.focus();
+        passwordInput.style.borderColor = '#e74c3c';
+        
+        // Reset border color after animation
+        setTimeout(() => {
+            passwordInput.style.borderColor = '#e9ecef';
+        }, 1000);
+    }
+}
+
+// Handle Enter key in password input
+function handlePasswordKeyPress(event) {
+    if (event.key === 'Enter') {
+        verifyPassword();
+    }
+}
+
 // Modal Management Functions
 function openManagementModal() {
+    if (!isAuthenticated) {
+        showPasswordModal();
+        return;
+    }
+    
     document.getElementById('managementModal').style.display = 'block';
     initializeGalleryData();
     populateImageList();
@@ -610,6 +674,12 @@ document.addEventListener('DOMContentLoaded', function() {
     setupTouchNavigation();
     preloadImages();
     initializeGalleryData();
+    
+    // Setup password input event listeners
+    const passwordInput = document.getElementById('passwordInput');
+    if (passwordInput) {
+        passwordInput.addEventListener('keypress', handlePasswordKeyPress);
+    }
     
     // Test autoplay button functionality
     const autoplayBtn = document.querySelector('.control-btn');

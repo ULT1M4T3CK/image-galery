@@ -11,6 +11,7 @@ A beautiful, modern image gallery showcasing memories from Portugal with a stunn
 - **Autoplay**: Toggle automatic slideshow with customizable timing
 - **Responsive**: Works perfectly on desktop, tablet, and mobile devices
 - **Accessibility**: Keyboard navigation and screen reader friendly
+- **Password Protection**: Secure admin access to gallery management features
 
 ## How to Use
 
@@ -27,6 +28,12 @@ A beautiful, modern image gallery showcasing memories from Portugal with a stunn
 - Click the "Autoplay" button to start automatic slideshow
 - Click "Pause" to stop the slideshow
 - The slideshow changes images every 4 seconds
+
+### Admin Access
+- Click "Manage Gallery" to access admin features
+- Enter the admin password: `portugal2024`
+- Use the eye icon to toggle password visibility
+- Press Enter or click "Access Gallery" to proceed
 
 ## File Structure
 
@@ -84,6 +91,13 @@ Modify the autoplay interval in `script.js`:
 autoplayInterval = setInterval(() => {
     changeSlide(1);
 }, 4000); // Change this value (in milliseconds)
+```
+
+### Changing Admin Password
+Modify the admin password in `script.js`:
+
+```javascript
+const ADMIN_PASSWORD = 'portugal2024'; // Change this to your desired password
 ```
 
 ## Getting Started

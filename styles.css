@@ -754,4 +754,156 @@ body {
         opacity: 1;
         transform: translateX(0);
     }
+}
+
+/* Password Modal Styles */
+.password-modal {
+    max-width: 500px !important;
+}
+
+.password-form {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.password-icon {
+    margin-bottom: 20px;
+}
+
+.password-icon i {
+    font-size: 4rem;
+    color: #4a7c59;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.password-form h3 {
+    color: #2d5a27;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.password-form p {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1rem;
+}
+
+.input-group {
+    margin-bottom: 30px;
+}
+
+.password-input-container {
+    position: relative;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.password-input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.password-input:focus {
+    outline: none;
+    border-color: #4a7c59;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: #4a7c59;
+    background: rgba(74, 124, 89, 0.1);
+}
+
+.password-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #4a7c59, #6b8e23);
+    color: white;
+    box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
+}
+
+.password-error {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(231, 76, 60, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.password-error i {
+    font-size: 1.2rem;
+}
+
+/* Responsive Design for Password Modal */
+@media (max-width: 768px) {
+    .password-modal {
+        width: 95% !important;
+        margin: 10% auto !important;
+    }
+    
+    .password-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .login-btn, .cancel-btn {
+        width: 100%;
+        max-width: 250px;
+    }
+    
+    .password-input-container {
+        max-width: 100%;
+    }
 } 
