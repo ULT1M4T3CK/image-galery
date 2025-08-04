@@ -20,34 +20,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to change slide
 function changeSlide(direction) {
+    console.log('changeSlide called with direction:', direction);
     const currentTotalSlides = galleryImages.length;
+    console.log('Current slide:', currentSlide, 'Total slides:', currentTotalSlides);
     const newSlide = (currentSlide + direction + currentTotalSlides) % currentTotalSlides;
+    console.log('Going to slide:', newSlide);
     goToSlide(newSlide);
 }
 
 // Function to go to specific slide
 function goToSlide(slideIndex) {
+    console.log('goToSlide called with index:', slideIndex);
+    
     // Get current slides and thumbnails (they might have been updated)
     const currentSlides = document.querySelectorAll('.slide');
     const currentThumbnails = document.querySelectorAll('.thumbnail');
     
+    console.log('Found', currentSlides.length, 'slides and', currentThumbnails.length, 'thumbnails');
+    
     // Remove active class from current slide and thumbnail
     if (currentSlides[currentSlide]) {
         currentSlides[currentSlide].classList.remove('active');
+        console.log('Removed active from slide', currentSlide);
     }
     if (currentThumbnails[currentSlide]) {
         currentThumbnails[currentSlide].classList.remove('active');
+        console.log('Removed active from thumbnail', currentSlide);
     }
     
     // Update current slide
     currentSlide = slideIndex;
+    console.log('Current slide updated to:', currentSlide);
     
     // Add active class to new slide and thumbnail
     if (currentSlides[currentSlide]) {
         currentSlides[currentSlide].classList.add('active');
+        console.log('Added active to slide', currentSlide);
     }
     if (currentThumbnails[currentSlide]) {
         currentThumbnails[currentSlide].classList.add('active');
+        console.log('Added active to thumbnail', currentSlide);
     }
     
     // Update slide counter
@@ -719,13 +731,18 @@ function updateGallery() {
 }
 
 function reattachEventListeners() {
+    console.log('Reattaching event listeners...');
+    
     // Reattach autoplay button
     const autoplayBtn = document.querySelector('.control-btn');
     if (autoplayBtn) {
+        console.log('Found autoplay button, attaching listener');
         autoplayBtn.onclick = function(e) {
             console.log('Autoplay button clicked');
             toggleAutoplay();
         };
+    } else {
+        console.log('Autoplay button not found');
     }
     
     // Reattach navigation buttons
@@ -733,17 +750,33 @@ function reattachEventListeners() {
     const nextBtn = document.querySelector('.next-btn');
     
     if (prevBtn) {
-        prevBtn.onclick = () => changeSlide(-1);
+        console.log('Found prev button, attaching listener');
+        prevBtn.onclick = () => {
+            console.log('Prev button clicked');
+            changeSlide(-1);
+        };
+    } else {
+        console.log('Prev button not found');
     }
     
     if (nextBtn) {
-        nextBtn.onclick = () => changeSlide(1);
+        console.log('Found next button, attaching listener');
+        nextBtn.onclick = () => {
+            console.log('Next button clicked');
+            changeSlide(1);
+        };
+    } else {
+        console.log('Next button not found');
     }
     
     // Reattach thumbnail click events
     const thumbnails = document.querySelectorAll('.thumbnail');
+    console.log('Found', thumbnails.length, 'thumbnails');
     thumbnails.forEach((thumbnail, index) => {
-        thumbnail.onclick = () => goToSlide(index);
+        thumbnail.onclick = () => {
+            console.log('Thumbnail clicked:', index);
+            goToSlide(index);
+        };
     });
 }
 
@@ -877,14 +910,6 @@ document.addEventListener('DOMContentLoaded', function() {
         passwordInput.addEventListener('keypress', handlePasswordKeyPress);
     }
     
-    // Test autoplay button functionality
-    const autoplayBtn = document.querySelector('.control-btn');
-    if (autoplayBtn) {
-        console.log('Autoplay button found');
-        autoplayBtn.addEventListener('click', function(e) {
-            console.log('Autoplay button clicked');
-        });
-    } else {
-        console.log('Autoplay button not found');
-    }
+    // Setup all event listeners
+    reattachEventListeners();
 }); 
