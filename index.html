@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portugal Memories - Image Gallery</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-camera"></i>
+                Portugal Memories
+            </h1>
+            <p class="subtitle">A journey through beautiful moments in Portugal</p>
+        </header>
+
+        <div class="gallery-container">
+            <!-- Management Menu Button -->
+            <div class="management-bar">
+                <button class="management-btn" onclick="openManagementModal()">
+                    <i class="fas fa-cog"></i>
+                    Manage Gallery
+                </button>
+            </div>
+
+            <div class="slideshow-container">
+                <div class="slide active">
+                    <img src="images/IMG-20230805-WA0004.jpg" alt="Portugal Memory 1">
+                    <div class="slide-info">
+                        <h3>Portugal Adventure</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0006.jpg" alt="Portugal Memory 2">
+                    <div class="slide-info">
+                        <h3>Coastal Views</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0008.jpg" alt="Portugal Memory 3">
+                    <div class="slide-info">
+                        <h3>Historic Streets</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0011.jpg" alt="Portugal Memory 4">
+                    <div class="slide-info">
+                        <h3>Local Charm</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0012.jpg" alt="Portugal Memory 5">
+                    <div class="slide-info">
+                        <h3>Architecture</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0018.jpg" alt="Portugal Memory 6">
+                    <div class="slide-info">
+                        <h3>Scenic Beauty</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0019.jpg" alt="Portugal Memory 7">
+                    <div class="slide-info">
+                        <h3>Cultural Heritage</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0020.jpg" alt="Portugal Memory 8">
+                    <div class="slide-info">
+                        <h3>Urban Exploration</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0021.jpg" alt="Portugal Memory 9">
+                    <div class="slide-info">
+                        <h3>Hidden Gems</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0022.jpg" alt="Portugal Memory 10">
+                    <div class="slide-info">
+                        <h3>Street Life</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20230805-WA0023.jpg" alt="Portugal Memory 11">
+                    <div class="slide-info">
+                        <h3>Artistic Moments</h3>
+                        <p>August 5, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0006.jpg" alt="Portugal Memory 12">
+                    <div class="slide-info">
+                        <h3>Autumn Colors</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0007.jpg" alt="Portugal Memory 13">
+                    <div class="slide-info">
+                        <h3>Seasonal Beauty</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0014.jpg" alt="Portugal Memory 14">
+                    <div class="slide-info">
+                        <h3>Natural Landscapes</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0017.jpg" alt="Portugal Memory 15">
+                    <div class="slide-info">
+                        <h3>Peaceful Moments</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0018.jpg" alt="Portugal Memory 16">
+                    <div class="slide-info">
+                        <h3>Serene Views</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0020.jpg" alt="Portugal Memory 17">
+                    <div class="slide-info">
+                        <h3>Golden Hour</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0022.jpg" alt="Portugal Memory 18">
+                    <div class="slide-info">
+                        <h3>Architectural Details</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0024.jpg" alt="Portugal Memory 19">
+                    <div class="slide-info">
+                        <h3>Cultural Richness</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0025.jpg" alt="Portugal Memory 20">
+                    <div class="slide-info">
+                        <h3>Memorable Experiences</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG-20231130-WA0026.jpg" alt="Portugal Memory 21">
+                    <div class="slide-info">
+                        <h3>Final Impressions</h3>
+                        <p>November 30, 2023</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="images/IMG20240730162629.jpg" alt="Portugal Memory 22">
+                    <div class="slide-info">
+                        <h3>Summer Memories</h3>
+                        <p>July 30, 2024</p>
+                    </div>
+                </div>
+
+                <!-- Navigation arrows -->
+                <button class="nav-btn prev-btn" onclick="changeSlide(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="nav-btn next-btn" onclick="changeSlide(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+
+            <!-- Thumbnail navigation -->
+            <div class="thumbnail-container">
+                <div class="thumbnail active" onclick="goToSlide(0)">
+                    <img src="images/IMG-20230805-WA0004.jpg" alt="Thumbnail 1">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(1)">
+                    <img src="images/IMG-20230805-WA0006.jpg" alt="Thumbnail 2">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(2)">
+                    <img src="images/IMG-20230805-WA0008.jpg" alt="Thumbnail 3">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(3)">
+                    <img src="images/IMG-20230805-WA0011.jpg" alt="Thumbnail 4">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(4)">
+                    <img src="images/IMG-20230805-WA0012.jpg" alt="Thumbnail 5">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(5)">
+                    <img src="images/IMG-20230805-WA0018.jpg" alt="Thumbnail 6">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(6)">
+                    <img src="images/IMG-20230805-WA0019.jpg" alt="Thumbnail 7">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(7)">
+                    <img src="images/IMG-20230805-WA0020.jpg" alt="Thumbnail 8">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(8)">
+                    <img src="images/IMG-20230805-WA0021.jpg" alt="Thumbnail 9">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(9)">
+                    <img src="images/IMG-20230805-WA0022.jpg" alt="Thumbnail 10">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(10)">
+                    <img src="images/IMG-20230805-WA0023.jpg" alt="Thumbnail 11">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(11)">
+                    <img src="images/IMG-20231130-WA0006.jpg" alt="Thumbnail 12">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(12)">
+                    <img src="images/IMG-20231130-WA0007.jpg" alt="Thumbnail 13">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(13)">
+                    <img src="images/IMG-20231130-WA0014.jpg" alt="Thumbnail 14">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(14)">
+                    <img src="images/IMG-20231130-WA0017.jpg" alt="Thumbnail 15">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(15)">
+                    <img src="images/IMG-20231130-WA0018.jpg" alt="Thumbnail 16">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(16)">
+                    <img src="images/IMG-20231130-WA0020.jpg" alt="Thumbnail 17">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(17)">
+                    <img src="images/IMG-20231130-WA0022.jpg" alt="Thumbnail 18">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(18)">
+                    <img src="images/IMG-20231130-WA0024.jpg" alt="Thumbnail 19">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(19)">
+                    <img src="images/IMG-20231130-WA0025.jpg" alt="Thumbnail 20">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(20)">
+                    <img src="images/IMG-20231130-WA0026.jpg" alt="Thumbnail 21">
+                </div>
+                <div class="thumbnail" onclick="goToSlide(21)">
+                    <img src="images/IMG20240730162629.jpg" alt="Thumbnail 22">
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button class="control-btn" onclick="toggleAutoplay()">
+                    <i class="fas fa-play" id="autoplay-icon"></i>
+                    <span id="autoplay-text">Autoplay</span>
+                </button>
+                <div class="slide-counter">
+                    <span id="current-slide">1</span> / <span id="total-slides">22</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Modal -->
+    <div id="managementModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-cog"></i> Gallery Management</h2>
+                <button class="close-btn" onclick="closeManagementModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Add Images Section -->
+                <div class="management-section">
+                    <h3><i class="fas fa-plus"></i> Add Images</h3>
+                    <div class="file-upload-area" id="fileUploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag & drop images here or click to browse</p>
+                        <input type="file" id="fileInput" multiple accept="image/*" style="display: none;">
+                    </div>
+                    <div class="upload-preview" id="uploadPreview"></div>
+                </div>
+
+                <!-- Manage Images Section -->
+                <div class="management-section">
+                    <h3><i class="fas fa-images"></i> Manage Images</h3>
+                    <div class="image-list" id="imageList">
+                        <!-- Images will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="management-actions">
+                    <button class="action-btn save-btn" onclick="saveChanges()">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button class="action-btn cancel-btn" onclick="closeManagementModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
