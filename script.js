@@ -2,9 +2,9 @@
 let currentSlide = 0;
 let autoplayInterval;
 let isAutoplayActive = false;
-const slides = document.querySelectorAll('.slide');
-const thumbnails = document.querySelectorAll('.thumbnail');
-const totalSlides = slides.length;
+let slides = document.querySelectorAll('.slide');
+let thumbnails = document.querySelectorAll('.thumbnail');
+let totalSlides = slides.length;
 
 // Initialize the slideshow
 document.addEventListener('DOMContentLoaded', function() {
@@ -28,22 +28,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Function to change slide
 function changeSlide(direction) {
-    const newSlide = (currentSlide + direction + totalSlides) % totalSlides;
+    const currentTotalSlides = galleryImages.length;
+    const newSlide = (currentSlide + direction + currentTotalSlides) % currentTotalSlides;
     goToSlide(newSlide);
 }
 
 // Function to go to specific slide
 function goToSlide(slideIndex) {
+    // Get current slides and thumbnails (they might have been updated)
+    const currentSlides = document.querySelectorAll('.slide');
+    const currentThumbnails = document.querySelectorAll('.thumbnail');
+    
     // Remove active class from current slide and thumbnail
-    slides[currentSlide].classList.remove('active');
-    thumbnails[currentSlide].classList.remove('active');
+    if (currentSlides[currentSlide]) {
+        currentSlides[currentSlide].classList.remove('active');
+    }
+    if (currentThumbnails[currentSlide]) {
+        currentThumbnails[currentSlide].classList.remove('active');
+    }
     
     // Update current slide
     currentSlide = slideIndex;
     
     // Add active class to new slide and thumbnail
-    slides[currentSlide].classList.add('active');
-    thumbnails[currentSlide].classList.add('active');
+    if (currentSlides[currentSlide]) {
+        currentSlides[currentSlide].classList.add('active');
+    }
+    if (currentThumbnails[currentSlide]) {
+        currentThumbnails[currentSlide].classList.add('active');
+    }
     
     // Update slide counter
     updateSlideCounter();
@@ -54,8 +67,9 @@ function goToSlide(slideIndex) {
 
 // Update slide counter display
 function updateSlideCounter() {
+    const currentTotalSlides = galleryImages.length;
     document.getElementById('current-slide').textContent = currentSlide + 1;
-    document.getElementById('total-slides').textContent = totalSlides;
+    document.getElementById('total-slides').textContent = currentTotalSlides;
 }
 
 // Toggle autoplay functionality
@@ -324,6 +338,23 @@ let isAuthenticated = false;
 
 // Initialize gallery data
 function initializeGalleryData() {
+    // Try to load saved gallery data from localStorage
+    const savedGallery = localStorage.getItem('galleryImages');
+    
+    if (savedGallery) {
+        try {
+            galleryImages = JSON.parse(savedGallery);
+            console.log('Loaded saved gallery data:', galleryImages);
+        } catch (error) {
+            console.error('Error loading saved gallery data:', error);
+            loadDefaultGalleryData();
+        }
+    } else {
+        loadDefaultGalleryData();
+    }
+}
+
+function loadDefaultGalleryData() {
     galleryImages = [
         { src: 'images/IMG-20230805-WA0004.jpg', title: 'Portugal Adventure', date: 'August 5, 2023', index: 0 },
         { src: 'images/IMG-20230805-WA0006.jpg', title: 'Coastal Views', date: 'August 5, 2023', index: 1 },
@@ -635,12 +666,93 @@ function saveChanges() {
 }
 
 function updateGallery() {
-    // This would typically save to a backend or localStorage
-    // For now, we'll just update the display
-    console.log('Gallery updated:', galleryImages);
+    // Update the slideshow with new gallery data
+    updateSlideshow();
     
-    // You could implement localStorage here:
-    // localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
+    // Update thumbnails
+    updateThumbnails();
+    
+    // Update slide counter
+    updateSlideCounter();
+    
+    // Reset current slide if it's out of bounds
+    if (currentSlide >= galleryImages.length) {
+        currentSlide = 0;
+    }
+    
+    // Update the slides and thumbnails to reflect current slide
+    updateSlideDisplay();
+    
+    // Save to localStorage for persistence
+    localStorage.setItem('galleryImages', JSON.stringify(galleryImages));
+    
+    console.log('Gallery updated:', galleryImages);
+}
+
+function updateSlideshow() {
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    const existingSlides = slideshowContainer.querySelectorAll('.slide');
+    
+    // Remove existing slides (except navigation buttons)
+    existingSlides.forEach(slide => slide.remove());
+    
+    // Add new slides
+    galleryImages.forEach((image, index) => {
+        const slide = document.createElement('div');
+        slide.className = `slide ${index === 0 ? 'active' : ''}`;
+        slide.innerHTML = `
+            <img src="${image.src}" alt="${image.title}">
+            <div class="slide-info">
+                <h3>${image.title}</h3>
+                <p>${image.date}</p>
+            </div>
+        `;
+        
+        // Insert before navigation buttons
+        const navButtons = slideshowContainer.querySelectorAll('.nav-btn');
+        if (navButtons.length > 0) {
+            slideshowContainer.insertBefore(slide, navButtons[0]);
+        } else {
+            slideshowContainer.appendChild(slide);
+        }
+    });
+    
+    // Update global slides reference
+    window.slides = document.querySelectorAll('.slide');
+    window.totalSlides = galleryImages.length;
+}
+
+function updateThumbnails() {
+    const thumbnailContainer = document.querySelector('.thumbnail-container');
+    thumbnailContainer.innerHTML = '';
+    
+    galleryImages.forEach((image, index) => {
+        const thumbnail = document.createElement('div');
+        thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+        thumbnail.onclick = () => goToSlide(index);
+        thumbnail.innerHTML = `<img src="${image.src}" alt="Thumbnail ${index + 1}">`;
+        thumbnailContainer.appendChild(thumbnail);
+    });
+    
+    // Update global thumbnails reference
+    window.thumbnails = document.querySelectorAll('.thumbnail');
+}
+
+function updateSlideDisplay() {
+    // Remove active class from all slides and thumbnails
+    const allSlides = document.querySelectorAll('.slide');
+    const allThumbnails = document.querySelectorAll('.thumbnail');
+    
+    allSlides.forEach(slide => slide.classList.remove('active'));
+    allThumbnails.forEach(thumb => thumb.classList.remove('active'));
+    
+    // Add active class to current slide and thumbnail
+    if (allSlides[currentSlide]) {
+        allSlides[currentSlide].classList.add('active');
+    }
+    if (allThumbnails[currentSlide]) {
+        allThumbnails[currentSlide].classList.add('active');
+    }
 }
 
 function showNotification(message, type = 'info') {
@@ -669,11 +781,19 @@ function showNotification(message, type = 'info') {
 // Initialize management system
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM loaded, initializing slideshow');
+    
+    // Initialize gallery data first
+    initializeGalleryData();
+    
+    // Update the gallery display with loaded data
+    updateSlideshow();
+    updateThumbnails();
     updateSlideCounter();
+    
+    // Setup other functionality
     setupKeyboardNavigation();
     setupTouchNavigation();
     preloadImages();
-    initializeGalleryData();
     
     // Setup password input event listeners
     const passwordInput = document.getElementById('passwordInput');
